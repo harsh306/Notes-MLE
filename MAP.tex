@@ -1,0 +1,73 @@
+\chapter{Maximum a posteriori (MAP) estimate}
+
+\section{MLE a special case of MAP}
+
+MAP usually comes up in Bayesian setting. Because, as the name suggests, it works on a posterior distribution, not only the likelihood \cite{mle-map}.
+
+Recall Bayes Theorem:
+\begin{equation}
+\begin{split}
+    p(\theta | data) & = \frac{p(data | \theta) \cdot p(\theta)}{p(data)} \\
+\end{split}
+\end{equation}
+
+
+Definition:
+\begin{equation}
+    \begin{split}
+    {\bf \hat{\theta}_{\text{MAP}}} &= \arg\max_{\bf \theta} p(\theta | data) \\
+&= \arg\max_{\bf \theta} \frac{p(data | \theta) p(\theta)}{p(data)} \\
+&= \arg\max_{\bf \theta} p(data | \theta) p(\theta) \\
+&= \arg\max_{\bf \theta} \log(p(data | \theta) p(\theta)) \\
+&= \arg\max_{\bf \theta} \log p(data | \theta) + \log p(\theta)  \\
+&= \hat{\theta}_{\text{MLE}} + \log p(\theta)  \\
+    \end{split}
+\end{equation}
+
+\section{Uniform Distribution priors}
+If the prior distribution is uniform i.e values assigned to $\theta = \frac{1}{N}$ everywhere in the distribution. Here we show that MLE is a special case of MAP, where the prior is uniform \cite{mle-map}. 
+\begin{equation}
+    \begin{split}
+    {\bf \hat{\theta}_{\text{MAP}}} &= \arg\max_{\bf \theta} p(data | \theta) p(\theta) \\
+&= \arg\max_{\bf \theta} \log(p(data | \theta) p(\theta)) \\
+&= \arg\max_{\bf \theta} \log p(data | \theta) + \log p(\theta)  \\
+&= \hat{\theta}_{\text{MLE}} + constant  \\
+&= \hat{\theta}_{\text{MLE}}  \\
+    \end{split}
+\end{equation}
+
+
+\section{Normal Distribution priors or L2 regularization}
+Now let's take the case of Normal distribution 
+Recall Normal Distribution:
+\begin{equation}
+Normal(x \mid \mu,\sigma) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}    
+\end{equation}
+
+
+L2 regularization 
+\begin{equation}
+    \begin{split}
+        {\bf \hat{\theta}_{\text{MAP}}} & = \arg\max_{\bf \beta} \Big[ \log \prod_{i=1}^{n} \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(y_i- (\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2}{2\sigma^2}} + \log \prod_{j=0}^{p} \frac{1}{\tau\sqrt{2\pi}}e^{-\frac{\beta_j^2}{2\tau^2}} \Big] \\
+& = \arg\max_{\bf \beta} \Big[- \sum_{i=1}^{n} {\frac{(y_i- (\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2}{2\sigma^2}} - \sum_{j=0}^{p} {\frac{\beta_j^2}{2\tau^2}} \Big]\\
+& = \arg\min_{\bf \beta} \frac{1}{2\sigma^2} \big[ \sum_{i=1}^{n} (y_i-(\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2 + \frac{\sigma^2}{\tau^2} \sum_{j=0}^{p} \beta_j^2 \big] \\
+& = \arg\min_{\bf \beta} \big[ \sum_{i=1}^{n} (y_i-(\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2 + \lambda \sum_{j=0}^{p} \beta_j^2 \big]
+    \end{split}
+\end{equation}
+
+\section{Laplacean priors or L1 regularization}
+Laplacean distribution:
+
+\begin{equation}
+Laplace(x \mid \mu, b) = \frac{1}{2b} e^{-\frac{|x-\mu|}{b}}
+\end{equation}
+
+L1 regularization 
+\begin{equation}
+    \begin{split}
+    {\bf \hat{\theta}_{\text{MAP}}} & = \arg\max_{\bf \beta} \Big[ \log \prod_{i=1}^{n} \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(y_i- (\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2}{2\sigma^2}} + \log \prod_{j=0}^{p} \frac{1}{2b}e^{-\frac{|\beta_j|}{2b}} \Big] \\
+&= \arg\max_{\bf \beta} \Big[- \sum_{i=1}^{n} {\frac{(y_i- (\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2}{2\sigma^2}} - \sum_{j=0}^{p} {\frac{|\beta_j|}{2b}} \Big]\\
+&= \arg\min_{\bf \beta} \frac{1}{2\sigma^2} \big[ \sum_{i=1}^{n} (y_i-(\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2 + \frac{\sigma^2}{b} \sum_{j=0}^{p} |\beta_j| \big] \\
+&= \arg\min_{\bf \beta} \big[ \sum_{i=1}^{n} (y_i-(\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2 + \lambda \sum_{j=0}^{p} |\beta_j| \big]
+\end{split}
+ \end{equation}

@@ -1,0 +1,133 @@
+\chapter{Maximum Likelihood Estimates}
+
+\section{Bayes Theorem}
+
+\textbf{Definition:}
+\begin{equation}
+\begin{split}
+    p(\theta | data) & = \frac{p(data | \theta) \cdot p(\theta)}{p(data)} \\
+\end{split}
+\end{equation}
+
+\begin{align*}
+    \text{posterior} &= \frac{\text{likelihood} \cdot \text{prior}}{\text{evidence}}
+\end{align*}
+
+In Bayesian inference, we're concerned with the posterior - the probability of the parameters given the data. Put in another way, we're looking to estimate the probability distribution of the parameters ($\theta$) given the data we have observed \cite{reg}. 
+
+
+\section{Introduction}
+
+In statistical inference we estimate the probability of parameters given a \textbf{parametric model}\cite{param_model} and observed data drawn from it. MLE provides answer for the following question: 
+
+\say{For which parameter value does the observed data have the biggest probability?} \cite{mit} \\
+
+\begin{equation}
+    L(\theta \mid data) = p(data \mid \theta)
+\end{equation}
+
+\noindent\textbf{Definition}: Given data the maximum likelihood estimate (MLE) for the parameter ($\theta$) is
+the value of $\hat{\theta}$ that maximizes the likelihood $ p(data \mid \theta)$, here $\theta \in R^N$. In other words, the MLE is the value of $\theta$ for which the data is most likely.
+
+\begin{equation}
+    p(data \mid \theta) \hspace{0.5mm} \overset{i.i.d}{=} \prod_{i=1} p(d_i \mid \theta)
+\end{equation}
+
+\noindent \textbf{Defination of MLE:}
+\begin{equation}\label{eq:mle}
+    \hat{\theta} = \underset{\theta}{argmax} \prod_{i=1} p(d_i \mid \theta)
+\end{equation}
+
+
+Some simple examples are explained that can help it understanding further are here \cite{mit}. \\
+
+\noindent\textbf{Assumption: Independent Identical distribution} 
+
+\noindent What i.i.d. assumption states is that random variables are independent and identically distributed. Informally it says that all the variables provide the same kind of information independently of each other \cite{why-mle, mit, why-iid}.
+
+From the abstract ideas let's jump for a moment to concrete example: in most cases your data can be stored in a matrix, with observations row-wise and variables column-wise. If you assume your data to be i.i.d., then it means for you that you need to bother only about relations between columns and do not have to bother about relations between rows. If you bothered about both then you would model dependence of columns on columns and rows on rows, i.e. everything on everything. It is very hard to make simplifications and build a statistical model of everything depending on everything. \cite{why-iid}
+
+
+\section{Relation with Optimization}
+
+Maximum Likelihood Estimation is an optimization problem.
+
+\begin{equation}\label{eq:cvx_mle}
+\begin{array}{cc}
+    maximize & \prod_{i=1} p(d_i \mid \theta) \\
+    s.t. & \theta \in C
+\end{array}
+\end{equation}
+if the density function is concave then this is a convex optimization problem such as Logistic Regression. Next, yes logarithms are easy to compute and also prevent underflow problem when dealing with joint probability distribution of larger datasets. Hence, equation \ref{eq:mle} can be written as following:
+     
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(d_i \mid \theta)
+\end{equation}
+
+And, now the optimization problem becomes
+
+\begin{equation}\label{eq:cvx_mle_log}
+\begin{array}{cc}
+    maximize & \sum_{i=1} \log p(d_i \mid \theta) \\
+    s.t. & \theta \in C
+\end{array}
+\end{equation}
+
+
+
+\section{Relation with Machine Learning}
+\subsection{Supervised Learning}
+Recall MLE :
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(d_i \mid \theta)
+\end{equation}
+
+In supervised learning we have observed data in pairs i.e features - \textbf{$\mathbf{x}$} and labels -  \textbf{$\mathbf{y}$}. So, continuing further MLE for supervised learning can be seen as:
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p( (y_i,x_i) \mid \theta)
+\end{equation}
+
+Also, popularly known -  Minimizing Negative Log Loss (NLL) is equivalent to MLE. 
+
+\begin{equation}
+L  = - \sum_{i=1} \log p( (y_i, x_i) \mid \theta)    
+\end{equation}
+
+
+
+\subsection{Unsupervised (Self-Supervised) Learning}
+
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(d_i \mid \theta)
+\end{equation}
+
+Again recall MLE, Maximum Likelihood Estimation is a probabilistic framework for solving the problem of density estimation \cite{mle-density}. For example, given a sample of observation $\mathbf{x}$ from a domain, where each observation is drawn independently from the domain with the same probability distribution (so-called independent and identically distributed, i.i.d., or close to it) \cite{mle-density}. Density estimation is self-supervised learning where we solve MLE to find the set of parameters that best describes the distribution from where the observed data is coming from.  
+
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(x_i \mid \theta)
+\end{equation}
+
+Fascinating talk on this from NIPS 2018 by Alex Graves \cite{nips-talk}. 
+
+
+% \section{Interpretation for penalty functions LR, LogR}
+
+% \begin{equation}
+%     \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(d_i \mid \theta)
+% \end{equation}
+
+
+% For any parametric model you may define a likelihood function. 
+
+% Be able to compute the maximum likelihood estimate of unknown parameter(s)
+
+% First you have data drawn from some distribution. -> parametric distribution
+ 
+%  Examples : 
+ 
+ 
+
+% \section{Linear regression}
+% \section{Logistic regression}
+
+

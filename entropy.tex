@@ -1,0 +1,83 @@
+\chapter{Entropy}
+
+\section{Information}
+
+\textbf{How much useful information is being communicated?}
+% “How to quantify the information? Is there a analytical way or a mathematical measure that can tell us about the information content?”
+% \begin{itemize}
+%     \item Bruno is dog
+%     \item Bruno is a big brown dog
+% \end{itemize}
+% How can we quantify the difference between two sentences? Can we have a mathematical measure that tells us how much more information second sentence have as compared to the first?
+
+
+Measure of information is given by:
+\begin{equation}
+I(x_i) = - \log(p(x_i))    
+\end{equation}
+
+\noindent Example : If the events are equally likely (flip of coin or $50\%$ chance that it will rain tomorrow, only ($-ln(2) = 1$) 1 Bit of useful information is communicated.
+
+\noindent If they are not equally likely then we need to measure what is the average message length that was communicated. Say you have 2 events that are not equally likely in that case 
+
+\begin{equation}
+H(p(x)) = - p(x_i) \log(p(x_i)) - (1-p(x_i)) \log(1-p(x_i))
+\end{equation}
+
+Now you can generalize it for multiple events 
+\begin{equation}
+H(p(x)) = - \underset{i}{\sum} p(x_i) \log p(x_i)
+\end{equation}
+
+\begin{equation}
+\begin{split}
+    H(p(x)) = − \mathbb{E}_{x \sim p} \log p(x)
+\end{split}
+\end{equation}
+
+\section{Cross Entropy}
+Cross entropy is the Avg msg length. 
+\begin{equation}
+H(p(x),q(x)) = - \underset{i}{\sum} p(x_i) \log q(x_i)
+\end{equation}
+
+Entropy is also the average message length if the events are equally likely. But you may have variable messge length per event and thus you can reduce the number of bits that can be communicated. 
+
+\begin{equation}
+    H(p,q) = - \underset{i}{\sum} p \log q
+\end{equation}
+
+But now you have to predict the distribution, why predict?  -BCZ you don't know the distribution of weather every day. Hence for prediction you have to do Maximum likelihood estimation
+
+\section{KL Divergence}
+Cross Entropy will be larger than entropy by KL divergence. 
+\begin{equation}
+    H(p,q) = H(p) + D_{KL}(p \vert \vert q)
+\end{equation}
+\begin{equation}
+    \begin{split}
+        D_{KL}(p \vert \vert q) & =  \sum_{i=1}^N p(x_i) \log \frac{p(x_i)}{q(x_i)} \\
+        & =  \sum_{i=1}^N p(x) [\log p(x_i) - \log q(x_i)] 
+    \end{split}
+\end{equation}
+
+\section{Entropy relation with MLE}
+Recall MLE
+\begin{equation}
+    \hat{\theta} = \underset{\theta}{argmax} \sum_{i=1} \log p(d_i \mid \theta)
+\end{equation}
+
+\noindent NLL and minimizing cross entropy is equivalent:
+
+\begin{equation}
+    \begin{array}{cc}
+         \begin{split}
+\hat\theta & = \arg\min_{\theta} - \sum^N_{i=1} \log q(x_i \vert \theta ) \\
+&  = \arg\min_{\theta} - \sum_{x \in X} p(x) \log q(x \vert \theta ) \\
+& = \arg\min_{\theta} H(p, q) \\ 
+\end{split} 
+    \end{array}
+\end{equation}
+
+\noindent You can add p(x) as a coefficient as it does not changes the minima of optimization problem. 
+

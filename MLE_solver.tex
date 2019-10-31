@@ -1,0 +1,36 @@
+\chapter{Solving MLE}
+
+\section{Taylor Series Approximation}
+
+It all starts from Taylor Series approximation which tells the geometry of any function at a given point (say a). If the Taylor series is centered at zero (a=0), then that series is also called a Maclaurin series. 
+
+\begin{equation}
+\begin{split}
+f(x) = f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f^{(3)}(x-a)}{3!}x^3 + \dotsb = \sum_{k=0}^\infty \frac{f^{\left(k\right)}(a)}{k!} (x-a)^k
+\end{split}
+\end{equation}
+
+  
+\section{Maxima, Minima and Saddle point}
+Now we know how to formulate MLE and now we need to compute its maximum or minimum. Depending on the complexity of the parameter there could be one or more critical points. Critical points bascially could be either a maximum, minimum or saddle point. 
+
+\subsection{Distributions}
+\begin{itemize}
+    \item Normal or Gaussian Distribution
+    \item Uniform distribution
+    \item Exponential distribution
+\end{itemize}
+
+
+
+\subsection{Method}
+\begin{itemize}
+  \item Describe the probability density function
+  \item Take first derivative and set it to zero
+  \item Second derivative test for the maximum, minimum or saddle point. 
+\end{itemize}
+
+
+\textbf{Why do we need iterative methods?, when analytical solution exists}\cite{iter} \\
+
+\noindent Even in the case of, say, linear models, where you have an analytical solution, it may still be best to use such an iterative solver. As an example, if we consider linear regression, the explicit solution requires inverting a matrix which has complexity $O(N^3)$. This becomes prohibitive in the context of big data. Also, a lot of problems in machine learning are convex, so using gradients ensure that we will get to the extrema. However, there are still relevant non-convex problems, like neural networks, where gradient methods (backpropagation) provide an efficient solver. Again this is specially relevant for the case of deep learning \cite{iter}.
