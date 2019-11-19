@@ -12,7 +12,27 @@ f(x) = f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f^{(3)}(x
 
   
 \subsection{Why Least Square Error?}
-For example lets say you have a linear model as follows: 
+Any dataset that you are trying to fit is assumed to have some noise. The noise can be independent of our data, we call this noise additive. It is generally introduced by human errors when labelling and/or sensor inaccuracy \cite{why-lse}.
+
+\begin{equation}
+    Y = X\beta + Z
+\end{equation}
+
+Z = Additive Gaussian Noise. 
+
+\begin{equation}
+Normal(0 \mid \mu,\sigma) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {z} \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {z } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+
+\end{equation}
+Hence our objective is to minimize this noise using MLE. 
+
+
+\begin{equation}
+\begin{split}
+    \arg\max_{\beta} \sum_{i=1} \log p( (y_i,x_i) \mid \beta) & = \arg\min_{\bf \beta} \Big[ \log \prod_{i=1}^{n} \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(y_i- (\beta_0 + \beta_1 x_{i,1} + ... + \beta_p x_{i,p}))^2}{2\sigma^2}} \Big] 
+    \end{split}
+\end{equation}
+
 
 
 \subsection{Method}
