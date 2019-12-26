@@ -1,1 +1,1 @@
-Please note this is not my work. It is just a compilation of some of the amazing blogs and books researchers have written. I have done my best to cite them all, please let me know if you have any suggestions or corrections. You can even submit a PR or create a issue for contribution. 
+Please note this is not my original work. It is just a compilation of some of the amazing blogs and books researchers have written. I have done my best to cite them all, please let me know if you have any suggestions or corrections. You can even submit a PR or create a issue for contribution. 
